@@ -14,6 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Chase.FFmpeg" Version="0.1.0" />
+    <PackageReference Include="Chase.FFmpeg.Extra" Version="0.0.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
