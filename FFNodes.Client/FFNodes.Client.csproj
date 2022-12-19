@@ -17,6 +17,8 @@
     <PackageReference Include="Chase.FFmpeg" Version="0.1.0" />
     <PackageReference Include="Chase.FFmpeg.Extra" Version="0.0.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
   </ItemGroup>
 
 </Project>
