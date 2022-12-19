@@ -9,7 +9,7 @@ namespace FFNodes.Server.Collections;
 /// <summary>
 /// A collection of all worker nodes.
 /// </summary>
-public class NodeCollection
+public sealed class NodeCollection
 {
     /// <summary>
     /// The singleton pattern for the node collection
@@ -23,6 +23,9 @@ public class NodeCollection
         _nodes = new();
         Load();
     }
+
+    public NodeModel[] ActiveNodes => _nodes.Values.Where(i => i.IsCurrentlyActive).ToArray();
+    public NodeModel[] Nodes => _nodes.Values.ToArray();
 
     /// <summary>
     /// Gets a node based on the Node's name
