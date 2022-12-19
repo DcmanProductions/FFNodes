@@ -10,6 +10,8 @@ namespace FFNodes.Server.Models;
 /// </summary>
 public struct NodeModel
 {
+    public List<NodeActiveProcessModel> ActiveProcesses { get; set; }
+
     /// <summary>
     /// The number of bytes per second the node can recieve from the server.
     /// </summary>
@@ -61,6 +63,10 @@ public struct NodeModel
     /// The name of the node.
     /// </summary>
     public string Name { get; init; }
+
+    public void Ping(NodeActiveProcessModel[] processes)
+    {
+    }
 
     /// <summary>
     /// Saves the node to file as json.
