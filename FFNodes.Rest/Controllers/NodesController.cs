@@ -29,20 +29,22 @@ public class NodesController : ControllerBase
             Registered = new
             {
                 Count = NodeCollection.Instance.Nodes.Length,
-                Nodes = NodeCollection.Instance.Nodes
+                NodeCollection.Instance.Nodes
             },
         });
     }
 
+    /// <summary>
+    /// Pings the server with clients current workload
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="processes"></param>
+    /// <returns></returns>
     [HttpPost()]
     public IActionResult PingNode([FromQuery] string name, [FromForm] NodeActiveProcessModel[] processes)
     {
         NodeModel node = NodeCollection.Instance.GetNode(name);
-        if (node.IsCurrentlyActive)
-        {
-            // Do stuff
-        }
-        node.IsCurrentlyActive = true;
+        node.Ping(processes);
         return Ok();
     }
 
