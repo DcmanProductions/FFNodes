@@ -1,7 +1,5 @@
 ﻿// LFInteractive LLC. - All Rights Reserved
 using FFNodes.Core.Utilities;
-using System.IO.Compression;
-using System.Text.Json;
 
 namespace FFNodes.Server.Models;
 
@@ -10,7 +8,8 @@ namespace FFNodes.Server.Models;
 /// </summary>
 public struct NodeModel
 {
-    public List<NodeActiveProcessModel> ActiveProcesses { get; set; }
+    private AdvancedTimer _inactive_timeout;
+    public NodeActiveProcessModel[] ActiveProcesses { get; set; }
 
     /// <summary>
     /// The number of bytes per second the node can recieve from the server.
@@ -57,15 +56,34 @@ public struct NodeModel
     /// <summary>
     /// If the node is currently connected and working on a file.
     /// </summary>
-    public bool IsCurrentlyActive { get; set; }
+    public bool IsCurrentlyActive { get; private set; }
 
     /// <summary>
     /// The name of the node.
     /// </summary>
     public string Name { get; init; }
 
+    /// <summary>
+    /// </summary>
+    /// <param name="processes"></param>
     public void Ping(NodeActiveProcessModel[] processes)
     {
+        if (_inactive_timeout == null)
+        {
+            _inactive_timeout = new(TimeSpan.FromSeconds(10))
+            {
+                Interuptable = true,
+            };
+            NodeModel current = this;
+            _inactive_timeout.Elapsed += (s, e) =>
+            {
+                current.IsCurrentlyActive = false;
+                current.ActiveProcesses = Array.Empty<NodeActiveProcessModel>();
+            };
+        }
+        IsCurrentlyActive = true;
+        _inactive_timeout.Start();
+        ActiveProcesses = processes;
     }
 
     /// <summary>
@@ -73,9 +91,6 @@ public struct NodeModel
     /// </summary>
     public void Save()
     {
-        using FileStream fs = new(Path.Combine(Locations.NodeData, ID.ToString()), FileMode.Create, FileAccess.Write, FileShare.Read);
-        using GZipStream compressed = new(fs, CompressionLevel.Fastest);
-        using StreamWriter writer = new(compressed);
-        writer.Write(JsonSerializer.Serialize(this));
+        FSUtilities.WriteToFile(Locations.NodeData, ID.ToString(), this);
     }
 }
