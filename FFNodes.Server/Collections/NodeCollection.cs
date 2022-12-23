@@ -1,8 +1,6 @@
 ﻿// LFInteractive LLC. - All Rights Reserved
 using FFNodes.Core.Utilities;
 using FFNodes.Server.Models;
-using Newtonsoft.Json.Linq;
-using System.IO.Compression;
 
 namespace FFNodes.Server.Collections;
 
@@ -43,20 +41,11 @@ public sealed class NodeCollection
         string[] files = Directory.GetFiles(Locations.NodeData, "*", SearchOption.TopDirectoryOnly);
         foreach (string file in files)
         {
-            string json = "";
-            using (FileStream fs = new(file, FileMode.Open, FileAccess.Read, FileShare.Read))
+            NodeModel? node = FSUtilities.ReadFromFile<NodeModel>(file);
+
+            if (node != null && node.HasValue)
             {
-                using GZipStream compressed = new(fs, CompressionMode.Decompress);
-                using StreamReader reader = new(compressed);
-                json = reader.ReadToEnd();
-            }
-            if (!string.IsNullOrEmpty(json))
-            {
-                NodeModel? node = JObject.Parse(json).ToObject<NodeModel>();
-                if (node != null && node.HasValue)
-                {
-                    _nodes.Add(node.Value.Name, node.Value);
-                }
+                _nodes.Add(node.Value.Name, node.Value);
             }
         }
     }
