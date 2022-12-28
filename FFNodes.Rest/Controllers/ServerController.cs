@@ -10,7 +10,7 @@ namespace FFNodes.Rest.Controllers;
 [ApiController]
 public class ServerController : ControllerBase
 {
-    [HttpGet("")]
+    [HttpGet()]
     public IActionResult Status()
     {
         return new JsonResult(new
