@@ -43,8 +43,15 @@ public class NodesController : ControllerBase
     [HttpPost()]
     public IActionResult PingNode([FromQuery] string name, [FromForm] NodeActiveProcessModel[] processes)
     {
-        NodeModel node = NodeCollection.Instance.GetNode(name);
-        node.Ping(processes);
+        NodeModel? node = NodeCollection.Instance.GetNode(name);
+        if (node == null)
+        {
+            return BadRequest(new
+            {
+                message = $"Node doesn't exist: {name}"
+            });
+        }
+        node?.Ping(processes);
         return Ok();
     }
 
