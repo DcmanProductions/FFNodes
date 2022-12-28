@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Chase.FFmpeg" Version="0.1.0" />
+    <PackageReference Include="Chase.FFmpeg.Extra" Version="0.0.7" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.0" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="5.0.1" />
