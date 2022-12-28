@@ -30,7 +30,12 @@ public sealed class NodeCollection
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public NodeModel GetNode(string name) => _nodes[name];
+    public NodeModel? GetNode(string name)
+    {
+        if (_nodes.ContainsKey(name))
+            return _nodes[name];
+        return null;
+    }
 
     /// <summary>
     /// Loads existing nodes from the hard drive.
