@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FFNodes.Web", "FFNodes.Web\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FFNodes.Server", "FFNodes.Server\FFNodes.Server.csproj", "{B73123A6-C8ED-431F-8016-F33FFEE6EE2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFNodes.Client.Service", "FFNodes.Client.Service\FFNodes.Client.Service.csproj", "{585DEF31-F7C0-492D-9FB0-E690DAB664AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FFNodes.Client.Service", "FFNodes.Client.Service\FFNodes.Client.Service.csproj", "{585DEF31-F7C0-492D-9FB0-E690DAB664AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
