@@ -7,6 +7,10 @@ namespace FFNodes.Core.Utilities;
 
 public static class FSUtilities
 {
+    public static bool IsDirectory(string path) => new FileInfo(path).Attributes.HasFlag(FileAttributes.Directory);
+
+    public static bool IsFile(string path) => !IsDirectory(path);
+
     public static T ReadFromFile<T>(string path)
     {
         if (File.Exists(path))
