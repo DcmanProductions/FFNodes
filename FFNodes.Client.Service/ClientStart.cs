@@ -10,6 +10,7 @@ public class ClientStart
     public static void Main(string[] args)
     {
         ILogger log = Instance.log;
+
         if (string.IsNullOrEmpty(Instance.NodeName))
         {
             Console.Write("Enter Node Name: ");
